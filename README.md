@@ -318,3 +318,75 @@ Harare
 Victoria Falls
 
 But start local. Dominate one city first.
+
+## HOW TO RUN THE DEMO (Linux Mint Xena)
+
+These steps assume you are on Linux Mint Xfce (Xena) or another Ubuntu 24.04–based system.
+
+### 1. Install Node.js and npm
+
+You need Node.js (v18+ recommended) and npm:
+
+```bash
+sudo apt update
+sudo apt install -y nodejs npm
+```
+
+You can check versions with:
+
+```bash
+node -v
+npm -v
+```
+
+If your `node` version is older than 18, consider installing a newer LTS via `nvm` (Node Version Manager), but the above is enough for testing the demo.
+
+### 2. Install frontend dependencies
+
+From the project root (`fixforme`), go into the `frontend` folder and install packages:
+
+```bash
+cd /home/mn/Documents/fixforme/frontend
+npm install
+```
+
+This will read `package.json` and install React, Vite, TailwindCSS and other dev tools into `node_modules`.
+
+### 3. Run the development server
+
+Still inside the `frontend` folder, start the Vite dev server:
+
+```bash
+npm run dev
+```
+
+You should see output similar to:
+
+```bash
+  VITE v5.x  ready in Xs
+  ➜  Local:   http://localhost:5173/
+```
+
+Open `http://localhost:5173/` in your browser. You’ll see the FixBulawayo demo with:
+
+- Landing page highlighting Bulawayo and key value props
+- Search page with filters, rating, and mock provider cards
+- Provider profile page with hire form (demo only)
+- Provider dashboard with sample job requests
+- Simple login/register UI (no real backend yet)
+
+### 4. Stop the dev server
+
+In the terminal where `npm run dev` is running, press `Ctrl + C` to stop the server.
+
+### 5. Build for production (optional)
+
+To create an optimized production build:
+
+```bash
+cd /home/mn/Documents/fixforme/frontend
+npm run build
+```
+
+Vite will output static files into a `dist` folder, which you can later serve with any static file server or behind a Node.js/Express backend when you start Phase 2.
+
