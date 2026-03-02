@@ -7,18 +7,15 @@ import { Profile } from "./pages/Profile.jsx";
 import { ProviderDashboard } from "./components/ProviderDashboard.jsx";
 import { Auth } from "./pages/Auth.jsx";
 
-type Page = "home" | "search" | "profile" | "dashboard" | "auth";
-
 function App() {
-  const [page, setPage] = useState<Page>("home");
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [page, setPage] = useState("home");
+  const [selectedId, setSelectedId] = useState(null);
 
-  const selectedProvider = useMemo(
-    () => providers.find((p) => p.id === selectedId) ?? null,
-    [selectedId]
-  );
+  const selectedProvider = useMemo(() => {
+    return providers.find((p) => p.id === selectedId) ?? null;
+  }, [selectedId]);
 
-  const handleSelectProvider = (provider: { id: number }) => {
+  const handleSelectProvider = (provider) => {
     setSelectedId(provider.id);
     setPage("profile");
   };
