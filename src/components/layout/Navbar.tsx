@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Briefcase, User, LogOut, Menu, X, ShieldCheck } from 'lucide-react';
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -11,6 +12,8 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomebase = pathname === '/homebase';
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
@@ -32,6 +35,15 @@ export default function Navbar() {
     await signOut(auth);
   };
 
+  const handleNavClick = (view: string, e?: React.MouseEvent) => {
+    if (isHomebase) {
+      if (e) e.preventDefault();
+      setIsMenuOpen(false);
+      const event = new CustomEvent('homebase-nav', { detail: { view } });
+      window.dispatchEvent(event);
+    }
+  };
+
   return (
     <nav className="border-b border-white/5 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,13 +57,29 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/gigs" className="text-slate-400 hover:text-white font-medium transition-colors">Browse Gigs</Link>
+            <Link 
+              href="/homebase?view=gigs" 
+              onClick={(e) => handleNavClick('gigs', e)}
+              className="text-slate-400 hover:text-white font-medium transition-colors cursor-pointer"
+            >
+              Browse Gigs
+            </Link>
             
             {user ? (
               <div className="flex items-center gap-6">
-                <Link href="/dashboard" className="text-slate-400 hover:text-white font-medium transition-colors">Dashboard</Link>
+                <Link 
+                  href="/homebase?view=dashboard" 
+                  onClick={(e) => handleNavClick('dashboard', e)}
+                  className="text-slate-400 hover:text-white font-medium transition-colors cursor-pointer"
+                >
+                  Dashboard
+                </Link>
                 <div className="flex items-center gap-3 pl-6 border-l border-white/10">
-                  <Link href={`/profile/${user.uid}`} className="flex items-center gap-2 group">
+                  <Link 
+                    href="/homebase?view=profile"
+                    onClick={(e) => handleNavClick('profile', e)}
+                    className="flex items-center gap-2 group cursor-pointer"
+                  >
                     <div className="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center overflow-hidden">
                       {profile?.avatar_url ? (
                         <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
@@ -91,11 +119,11 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-slate-900 border-b border-white/5 p-4 space-y-4">
-          <Link href="/gigs" className="block text-slate-400 p-2">Browse Gigs</Link>
+          <Link href="/homebase?view=gigs" onClick={(e) => handleNavClick('gigs', e)} className="block text-slate-400 p-2">Browse Gigs</Link>
           {user ? (
             <>
-              <Link href="/dashboard" className="block text-slate-400 p-2">Dashboard</Link>
-              <Link href={`/profile/${user.uid}`} className="block text-slate-400 p-2">Profile</Link>
+              <Link href="/homebase?view=dashboard" onClick={(e) => handleNavClick('dashboard', e)} className="block text-slate-400 p-2">Dashboard</Link>
+              <Link href="/homebase?view=profile" onClick={(e) => handleNavClick('profile', e)} className="block text-slate-400 p-2">Profile</Link>
               <button onClick={handleLogout} className="block w-full text-left text-red-400 p-2">Logout</button>
             </>
           ) : (

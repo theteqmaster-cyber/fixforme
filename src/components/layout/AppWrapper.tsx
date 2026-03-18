@@ -1,7 +1,7 @@
 "use client";
 
 import { useOffline } from '@/hooks/useOffline';
-import { Navbar } from './Navbar';
+import Navbar from './Navbar';
 import { WifiOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 

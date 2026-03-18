@@ -34,7 +34,7 @@ export default function GigDetailsPage({ params }: { params: Promise<{ id: strin
         
         if (gigSnap.exists()) {
           const gigData = gigSnap.data();
-          setGig({ id: gigSnap.id, ...gigData });
+          setGig({ id: gigSnap.id, ...gigData } as any);
           
           // Fetch client profile
           const clientRef = doc(db, 'profiles', gigData.client_id);
@@ -65,6 +65,8 @@ export default function GigDetailsPage({ params }: { params: Promise<{ id: strin
     try {
       await addDoc(collection(db, 'applications'), {
         gig_id: id,
+        gig_title: gig.title,
+        client_id: gig.client_id,
         worker_id: user.uid,
         status: 'pending',
         message: "I am interested in this task and have the relevant skills.",
@@ -136,6 +138,16 @@ export default function GigDetailsPage({ params }: { params: Promise<{ id: strin
               <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
                 {gig.description}
               </p>
+
+              {gig.images && gig.images.length > 0 && (
+                <div className="grid grid-cols-2 gap-4 mt-8">
+                  {gig.images.map((img: string, idx: number) => (
+                    <div key={idx} className="h-48 rounded-2xl bg-slate-800 overflow-hidden border border-white/5">
+                      <img src={img} alt={`Reference ${idx}`} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Commitment Lock Info */}
