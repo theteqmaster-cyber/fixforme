@@ -227,7 +227,7 @@ export default function PitchPage() {
               <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            SME Business Indaba Hackathon 2026
+            SME Business Indaba Hackathon 2026 &nbsp;·&nbsp; Group R
           </div>
 
           {/* BIG DRAMATIC TITLE */}
@@ -240,22 +240,73 @@ export default function PitchPage() {
           </p>
 
           {/* Members */}
-          <div className="fade-up delay-500 flex flex-wrap gap-3 justify-center mb-10">
+          <div className="fade-up delay-500 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl mx-auto mb-10">
             {[
-              { name: 'Chikomborero' },
-              { name: 'Mphathisi' },
-              { name: 'Siyabonga' },
-              { name: 'Anesu' },
+              {
+                name: 'Mphathisi Ndlovu',
+                studentNo: 'N02529052A',
+                phone: '0787 146 103',
+                faculty: 'Computer Science',
+                color: 'from-blue-500 to-cyan-500',
+                border: 'border-blue-500/30',
+                badge: 'bg-blue-500/15 text-blue-300',
+              },
+              {
+                name: 'Anesu Hove',
+                studentNo: 'N02530834W',
+                phone: '0780 884 195',
+                faculty: 'Quantity Surveying',
+                color: 'from-emerald-500 to-teal-400',
+                border: 'border-emerald-500/30',
+                badge: 'bg-emerald-500/15 text-emerald-300',
+              },
+              {
+                name: 'Siyabonga Khumalo',
+                studentNo: 'N02534243G',
+                phone: '0788 532 354',
+                faculty: 'Computer Science',
+                color: 'from-violet-500 to-purple-400',
+                border: 'border-violet-500/30',
+                badge: 'bg-violet-500/15 text-violet-300',
+              },
+              {
+                name: 'Chikomborero I Zvinoira',
+                studentNo: 'N02532066J',
+                phone: '0781 013 061',
+                faculty: 'Chemical Engineering',
+                color: 'from-orange-500 to-amber-400',
+                border: 'border-orange-500/30',
+                badge: 'bg-orange-500/15 text-orange-300',
+              },
             ].map((m, i) => (
               <div
                 key={i}
-                className="glow-card px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-center min-w-[130px]"
+                className={`glow-card p-4 rounded-2xl bg-white/[0.04] border ${m.border} text-center flex flex-col items-center gap-2`}
+                style={{ animationDelay: `${i * 0.1 + 0.5}s`, opacity: 0 }}
               >
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-2 text-primary font-black text-lg">
+                {/* Avatar */}
+                <div
+                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${m.color} flex items-center justify-center text-white font-black text-xl shadow-lg mb-1`}
+                >
                   {m.name[0]}
                 </div>
-                <p className="text-white font-bold text-sm">{m.name}</p>
-                <p className="text-slate-600 text-xs mt-1 italic">student # TBA</p>
+
+                {/* Name */}
+                <p className="text-white font-black text-sm leading-tight">{m.name}</p>
+
+                {/* Divider */}
+                <div className="w-8 h-px bg-white/10" />
+
+                {/* Student number */}
+                <p className="text-slate-400 font-mono text-xs tracking-wider">{m.studentNo}</p>
+
+                {/* Phone */}
+                <p className="text-slate-500 text-xs">{m.phone}</p>
+
+                {/* Faculty badge */}
+                <span className={`mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${m.badge}`}>
+                  {m.faculty}
+                </span>
               </div>
             ))}
           </div>
@@ -609,8 +660,8 @@ export default function PitchPage() {
 
           {/* Bottom members reminder */}
           <div className="fade-up delay-700 mt-20 flex flex-wrap items-center justify-center gap-3">
-            <span className="text-slate-600 text-xs font-bold uppercase tracking-widest mr-2">Presented by</span>
-            {['Chikomborero', 'Mphathisi', 'Siyabonga', 'Anesu'].map((name, i) => (
+            <span className="text-slate-600 text-xs font-bold uppercase tracking-widest mr-2">Presented by Group R</span>
+            {['Mphathisi Ndlovu', 'Anesu Hove', 'Siyabonga Khumalo', 'Chikomborero I Zvinoira'].map((name, i) => (
               <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white text-xs font-bold">
                 {name}
               </span>
