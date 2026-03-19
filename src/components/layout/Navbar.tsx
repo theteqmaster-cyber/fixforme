@@ -64,6 +64,12 @@ export default function Navbar() {
             >
               Browse Gigs
             </Link>
+            <Link
+              href="/pitch"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary/10 border border-primary/30 text-primary font-bold text-sm hover:bg-primary/20 transition-all"
+            >
+              🙋 About Us
+            </Link>
             
             {user ? (
               <div className="flex items-center gap-6">
@@ -120,6 +126,7 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden bg-slate-900 border-b border-white/5 p-4 space-y-4">
           <Link href="/homebase?view=gigs" onClick={(e) => handleNavClick('gigs', e)} className="block text-slate-400 p-2">Browse Gigs</Link>
+          <Link href="/pitch" className="block text-primary font-bold p-2">🙋 About Us</Link>
           {user ? (
             <>
               <Link href="/homebase?view=dashboard" onClick={(e) => handleNavClick('dashboard', e)} className="block text-slate-400 p-2">Dashboard</Link>
