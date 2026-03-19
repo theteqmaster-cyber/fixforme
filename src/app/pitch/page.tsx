@@ -281,7 +281,7 @@ export default function PitchPage() {
             ].map((m, i) => (
               <div
                 key={i}
-                className={`glow-card p-4 rounded-2xl bg-white/[0.04] border ${m.border} text-center flex flex-col items-center gap-2`}
+                className={`fade-up glow-card p-4 rounded-2xl bg-white/[0.04] border ${m.border} text-center flex flex-col items-center gap-2`}
                 style={{ animationDelay: `${i * 0.1 + 0.5}s`, opacity: 0 }}
               >
                 {/* Avatar */}
